@@ -115,5 +115,17 @@ namespace OxyPlot
             // ReSharper restore EqualExpressionComparison
 #pragma warning restore 1718
         }
+
+        /// <summary>
+        /// Calculates the distance to the specified point.
+        /// </summary>
+        /// <param name="other">The other point.</param>
+        /// <returns>The distance.</returns>
+        public double DistanceTo(DataPoint other)
+        {
+            double dx = other.X - this.x;
+            double dy = other.Y - this.y;
+            return Math.Sqrt((dx * dx) + (dy * dy));
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace OxyPlot.Wpf.Tests
             {
                 var model = new PlotModel();
                 var plotView = new PlotView { Model = model };
-                PlotModel actualModel = null;
+                Model actualModel = null;
                 Task.Factory.StartNew(() => actualModel = plotView.ActualModel).Wait();
                 Assert.AreEqual(model, actualModel);
             }

@@ -24,7 +24,7 @@ namespace OxyPlot.Wpf
     /// <summary>
     /// Represents a control that displays a <see cref="PlotModel" />.
     /// </summary>
-    public abstract partial class PlotBase : Control, IPlotView
+    public abstract partial class PlotBase : GraphicsView, IPlotView
     {
         /// <summary>
         /// The Grid PART constant.
@@ -124,10 +124,18 @@ namespace OxyPlot.Wpf
         }
 
         /// <summary>
-        /// Gets the actual model.
+        /// Gets the actual model in the view.
         /// </summary>
-        /// <value>The actual model.</value>
-        public abstract PlotModel ActualModel { get; }
+        /// <value>
+        /// The actual model.
+        /// </value>
+        PlotModel IPlotView.ActualModel
+        {
+            get
+            {
+                return (PlotModel)this.ActualModel;
+            }
+        }
 
         /// <summary>
         /// Gets the actual controller.
@@ -142,12 +150,6 @@ namespace OxyPlot.Wpf
                 return this.ActualController;
             }
         }
-
-        /// <summary>
-        /// Gets the actual PlotView controller.
-        /// </summary>
-        /// <value>The actual PlotView controller.</value>
-        public abstract IPlotController ActualController { get; }
 
         /// <summary>
         /// Gets the coordinates of the client area of the view.
@@ -187,7 +189,7 @@ namespace OxyPlot.Wpf
         /// <summary>
         /// Hides the zoom rectangle.
         /// </summary>
-        public void HideZoomRectangle()
+        public override void HideZoomRectangle()
         {
             this.zoomControl.Visibility = Visibility.Collapsed;
         }
@@ -200,7 +202,7 @@ namespace OxyPlot.Wpf
         {
             if (this.ActualModel != null)
             {
-                this.ActualModel.PanAllAxes(delta.X, delta.Y);
+                ((IPlotView)this).ActualModel.PanAllAxes(delta.X, delta.Y);
             }
 
             this.InvalidatePlot(false);
@@ -214,7 +216,7 @@ namespace OxyPlot.Wpf
         {
             if (this.ActualModel != null)
             {
-                this.ActualModel.ZoomAllAxes(factor);
+                ((IPlotView)this).ActualModel.ZoomAllAxes(factor);
             }
 
             this.InvalidatePlot(false);
@@ -227,7 +229,7 @@ namespace OxyPlot.Wpf
         {
             if (this.ActualModel != null)
             {
-                this.ActualModel.ResetAllAxes();
+                ((IPlotView)this).ActualModel.ResetAllAxes();
             }
 
             this.InvalidatePlot(false);
@@ -280,33 +282,7 @@ namespace OxyPlot.Wpf
             this.zoomControl = new ContentControl();
             this.overlays.Children.Add(this.zoomControl);
         }
-
-        /// <summary>
-        /// Sets the cursor type.
-        /// </summary>
-        /// <param name="cursorType">The cursor type.</param>
-        public void SetCursorType(CursorType cursorType)
-        {
-            switch (cursorType)
-            {
-                case CursorType.Pan:
-                    this.Cursor = this.PanCursor;
-                    break;
-                case CursorType.ZoomRectangle:
-                    this.Cursor = this.ZoomRectangleCursor;
-                    break;
-                case CursorType.ZoomHorizontal:
-                    this.Cursor = this.ZoomHorizontalCursor;
-                    break;
-                case CursorType.ZoomVertical:
-                    this.Cursor = this.ZoomVerticalCursor;
-                    break;
-                default:
-                    this.Cursor = Cursors.Arrow;
-                    break;
-            }
-        }
-
+       
         /// <summary>
         /// Shows the tracker.
         /// </summary>
@@ -355,7 +331,7 @@ namespace OxyPlot.Wpf
         /// Shows the zoom rectangle.
         /// </summary>
         /// <param name="r">The rectangle.</param>
-        public void ShowZoomRectangle(OxyRect r)
+        public override void ShowZoomRectangle(OxyRect r)
         {
             this.zoomControl.Width = r.Width;
             this.zoomControl.Height = r.Height;
@@ -372,6 +348,17 @@ namespace OxyPlot.Wpf
         public void SetClipboardText(string text)
         {
             Clipboard.SetText(text);
+        }
+
+        /// <summary>
+        /// Creates the default controller.
+        /// </summary>
+        /// <returns>
+        /// The default controller.
+        /// </returns>
+        protected override IController CreateDefaultController()
+        {
+            return new PlotController();
         }
 
         /// <summary>
@@ -457,14 +444,14 @@ namespace OxyPlot.Wpf
         /// <param name="e">The <see cref="System.Windows.Input.ExecutedRoutedEventArgs" /> instance containing the event data.</param>
         private void DoCopy(object sender, ExecutedRoutedEventArgs e)
         {
-            var background = this.ActualModel.Background.IsVisible() ? this.ActualModel.Background : this.Background.ToOxyColor();
+            var background = ((IPlotView)this).ActualModel.Background.IsVisible() ? ((IPlotView)this).ActualModel.Background : this.Background.ToOxyColor();
             if (background.IsInvisible())
             {
                 background = OxyColors.White;
             }
 
             var bitmap = PngExporter.ExportToBitmap(
-                this.ActualModel, (int)this.ActualWidth, (int)this.ActualHeight, background);
+                ((IPlotView)this).ActualModel, (int)this.ActualWidth, (int)this.ActualHeight, background);
             Clipboard.SetImage(bitmap);
         }
 
@@ -560,9 +547,9 @@ namespace OxyPlot.Wpf
             // Clear the canvas
             this.canvas.Children.Clear();
 
-            if (this.ActualModel != null && this.ActualModel.Background.IsVisible())
+            if (this.ActualModel != null && ((IPlotView)this).ActualModel.Background.IsVisible())
             {
-                this.canvas.Background = this.ActualModel.Background.ToBrush();
+                this.canvas.Background = ((IPlotView)this).ActualModel.Background.ToBrush();
             }
             else
             {

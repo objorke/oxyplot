@@ -211,7 +211,7 @@ namespace OxyPlot
         /// The last update exception.
         /// </summary>
         /// <value>The exception or <c>null</c> if there was no exceptions during the last update.</value>
-        private Exception lastPlotException;
+        private Exception updateException;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlotModel" /> class.
@@ -237,7 +237,6 @@ namespace OxyPlot
             this.DefaultFont = "Segoe UI";
             this.DefaultFontSize = 12;
 
-            this.TitleToolTip = null;
             this.TitleFont = null;
             this.TitleFontSize = 18;
             this.TitleFontWeight = FontWeights.Bold;
@@ -1016,7 +1015,7 @@ namespace OxyPlot
         /// <returns>The exception or <c>null</c> if there was no exception.</returns>
         public Exception GetLastPlotException()
         {
-            return this.lastPlotException;
+            return this.updateException;
         }
 
         /// <summary>
@@ -1033,7 +1032,7 @@ namespace OxyPlot
             {
                 try
                 {
-                    this.lastPlotException = null;
+                    this.updateException = null;
                     this.OnUpdating();
 
                     // Updates the default axes
@@ -1084,7 +1083,7 @@ namespace OxyPlot
                 }
                 catch (Exception e)
                 {
-                    this.lastPlotException = e;
+                    this.updateException = e;
                 }
             }
         }
@@ -1180,7 +1179,7 @@ namespace OxyPlot
         /// <returns>
         /// An enumerator of the elements.
         /// </returns>
-        protected override IEnumerable<PlotElement> GetHitTestElements()
+        protected override IEnumerable<UIElement> GetHitTestElements()
         {
             foreach (var axis in this.Axes.Reverse().Where(a => a.IsAxisVisible && a.Layer == AxisLayer.AboveSeries))
             {

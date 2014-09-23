@@ -1,0 +1,28 @@
+﻿<Window x:Class="DrawingDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:oxy="http://oxyplot.org/wpf"
+        Title="OxyPlot.Drawing demo" Height="800" Width="1000">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Save as .png" Command="{Binding SavePngCommand}"/>
+                <MenuItem Header="Save as .pdf" Command="{Binding SavePdfCommand}"/>
+                <MenuItem Header="Save as .svg" Command="{Binding SaveSvgCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Copy" Command="ApplicationCommands.Copy"/>
+                <Separator/>
+                <MenuItem Header="Select all" Command="oxy:DrawingViewCommands.SelectAll"/>
+                <MenuItem Header="Select none" Command="oxy:DrawingViewCommands.SelectNone"/>
+                <MenuItem Header="Invert selection" Command="oxy:DrawingViewCommands.SelectInverse"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Zoom extents" Command="oxy:DrawingViewCommands.ZoomExtents"/>
+            </MenuItem>
+        </Menu>
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding Examples}" Width="200" BorderThickness="0 0 1 0" SelectedItem="{Binding SelectedExample}">
+        </ListBox>
+        <oxy:DrawingView Drawing="{Binding SelectedExample.Model}"/>
+    </DockPanel>
+</Window>

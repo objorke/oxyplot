@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OxyPlot.Drawing.DrawingViewModel" Collapsed="true">
+    <Position X="4.75" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAEAAhABgAAEIQAQAQCAAAgAAAAgVAAgAAAEAg=</HashCode>
+      <FileName>Drawing\DrawingView\DrawingViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OxyPlot.Drawing.DrawingModel" Collapsed="true">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAEAQAAABAABAAQBAAAAAABAAAAAAAgAABAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\DrawingModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.DrawingElement" Collapsed="true">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAgAAAAAAAIAAAAgAAAgAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Drawing\DrawingModel\DrawingElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OxyPlot.Drawing.PointsElement" Collapsed="true">
+    <Position X="3.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\PointsElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.ShapeElement" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAIAAAAAAAAAAgACAAAAAAACAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\ShapeElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.StrokedElement" Collapsed="true">
+    <Position X="3.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABACAAABAAIAAAAAAAAAAAACAAgAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\StrokedElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Arrow" Collapsed="true">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAYAAAAAAAABAAAAAAgAAAgAAAAAg=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Arrow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Ellipse" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAGAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Ellipse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Grid" Collapsed="true">
+    <Position X="15.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAABAAAIACIAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Image" Collapsed="true">
+    <Position X="13" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAABgAAAIIAIAAAgEQGAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Interpolation" Collapsed="true">
+    <Position X="17.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Interpolation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Lines" Collapsed="true">
+    <Position X="4.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Lines.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Polygon" Collapsed="true">
+    <Position X="17.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAIBAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Polyline" Collapsed="true">
+    <Position X="3" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Polyline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Rectangle" Collapsed="true">
+    <Position X="13.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAIAAIAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Rectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.RoundedRectangle" Collapsed="true">
+    <Position X="13.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\RoundedRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.Text" Collapsed="true">
+    <Position X="15.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAgAAgAAAoAAAAAAAEAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.TileLayer" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAgEAEAAgAAAAMAICBAAgQSkASAAAAIAAEAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\TileLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.UmlClassBox" Collapsed="true">
+    <Position X="7" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAgIAAAAAAAAAAAAAAAAAAAAAACAEA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\UmlClassBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Drawing.DrawingController" Collapsed="true">
+    <Position X="13.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingController\DrawingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.ControllerBase" Collapsed="true">
+    <Position X="13.75" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABApQACAFBAECCQAAIAAIAIAQQAAACAAEBEgAJAAgo=</HashCode>
+      <FileName>Graphics\ControllerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OxyPlot.Model" Collapsed="true">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAIABBCgGCQAgJAEIBAARIBEAFEIEgAAhDCEgI=</HashCode>
+      <FileName>Graphics\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.UIElement" Collapsed="true">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAgEAAAAAAAAAAARIAEAFEIAAAAhCCAAA=</HashCode>
+      <FileName>Graphics\UIElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.SelectableElement" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAABQAEAAAAAAAAgIAAAAAACAAAARBQAEKEgA=</HashCode>
+      <FileName>Graphics\SelectableElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OxyPlot.Element" Collapsed="true">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Graphics\Element.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="OxyPlot.Drawing.LatLon" Collapsed="true">
+    <Position X="20" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAEAAAACAAAAIAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\Elements\LatLon.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="OxyPlot.Drawing.IDrawingViewModel" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEAAhAAAAAAIAAQAQAAAAAAAAAABAAAAAAEAA=</HashCode>
+      <FileName>Drawing\DrawingView\IDrawingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OxyPlot.Drawing.IDrawingView" Collapsed="true">
+    <Position X="2" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAgAAAAAAIAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingView\IDrawingView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OxyPlot.IView" Collapsed="true">
+    <Position X="2" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAQAEAEAAAAAAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>Graphics\IView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OxyPlot.IViewModel" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABgAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Graphics\IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OxyPlot.Drawing.IDrawingElement">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawing\DrawingModel\IDrawingElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

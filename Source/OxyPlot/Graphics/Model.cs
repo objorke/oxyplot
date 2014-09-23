@@ -75,6 +75,6 @@ namespace OxyPlot
         /// Gets all elements of the model, top-level elements first.
         /// </summary>
         /// <returns>An enumerator of the elements.</returns>
-        protected abstract IEnumerable<PlotElement> GetHitTestElements();
+        protected abstract IEnumerable<UIElement> GetHitTestElements();
     }
 }

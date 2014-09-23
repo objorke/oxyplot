@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE562D06-3069-43F4-8173-840DF9DD8916}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DrawingLibrary</RootNamespace>
+    <AssemblyName>DrawingLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <ProjectReference Include="..\..\OxyPlot\OxyPlot.csproj">
+      <Project>{7a0b35c0-dd17-4964-8e9a-44d6cecdc692}</Project>
+      <Name>OxyPlot</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Examples\AirfoilExamples\AirfoilExamples.cs" />
+    <Compile Include="Examples\AirfoilExamples\NacaAirfoil.cs" />
+    <Compile Include="Examples\BezierExamples.cs" />
+    <Compile Include="Example.cs" />
+    <Compile Include="ExampleAttribute.cs" />
+    <Compile Include="ExampleInfo.cs" />
+    <Compile Include="Examples.cs" />
+    <Compile Include="Examples\CircleExamples.cs" />
+    <Compile Include="Examples\ExtensionMethods.cs" />
+    <Compile Include="Examples\IntersectionExamples.cs" />
+    <Compile Include="Examples\MiscExamples.cs" />
+    <Compile Include="Examples\MouseEventExamples.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OpenStreetMapExamples.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Bounds.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Element.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Member.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Node.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\NodeRef.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\OpenStreetMap.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Relation.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Tag.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\TaggedElement.cs" />
+    <Compile Include="Examples\OpenStreetMapExamples\OsmModel\Way.cs" />
+    <Compile Include="Examples\SvgExamples\SvgExamples.cs" />
+    <Compile Include="Examples\SvgExamples\SvgModel\SvgElement.cs" />
+    <Compile Include="Examples\SvgExamples\SvgModel\Svg.cs" />
+    <Compile Include="Examples\SvgExamples\SvgModel\SvgGroup.cs" />
+    <Compile Include="Examples\SvgExamples\SvgModel\SvgPath.cs" />
+    <Compile Include="Examples\TileLayerExamples.cs" />
+    <Compile Include="Examples\UmlExamples.cs" />
+    <Compile Include="Properties\AssemblyDescription.cs" />
+    <EmbeddedResource Include="Examples\OpenStreetMapExamples\map.osm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Examples\SvgExamples\Ghostscript_Tiger.svgz" />
+    <None Include="Examples\UmlClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Tracklog.gpx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Examples\ClipperExamples\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\SvgExamples\Ghostscript_Tiger.svg">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\SvgExamples\Blank_map_of_Europe.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\OpenStreetMapExamples\mtbways.osm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\SvgExamples\Europe_countries.svg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

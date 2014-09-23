@@ -108,10 +108,21 @@ namespace OxyPlot
         /// <exception cref="System.FormatException">Invalid format.</exception>
         public static OxyColor Parse(string value)
         {
+            if (value == null || value == "none")
+            {
+                return OxyColors.Undefined;
+            }
+
             value = value.Trim();
             if (value.StartsWith("#"))
             {
                 value = value.Trim('#');
+                if (value.Length == 3)
+                {
+                    // replicate digits
+                    value = string.Format("{0}{0}{1}{1}{2}{2}", value[0], value[1], value[2]);
+                }
+
                 var u = uint.Parse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
                 if (value.Length < 8)
                 {
