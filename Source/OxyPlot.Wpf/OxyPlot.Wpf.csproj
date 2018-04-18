@@ -86,6 +86,10 @@
     <Compile Include="PlotBase.cs" />
     <Compile Include="PlotBase.Events.cs" />
     <Compile Include="PlotBase.Export.cs" />
+    <Compile Include="Drawing\DrawingView.cs" />
+    <Compile Include="Drawing\DrawingViewCommands.cs" />
+    <Compile Include="Drawing\RectangleAdorner.cs" />
+    <Compile Include="Graphics\GraphicsView.cs" />
     <Compile Include="PlotCommands.cs" />
     <Compile Include="PlotView.cs" />
     <Compile Include="Plot.Properties.cs" />

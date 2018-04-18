@@ -111,7 +111,7 @@ namespace OxyPlot.Wpf
             // store the mouse down point, check it when mouse button is released to determine if the context menu should be shown
             this.mouseDownPoint = e.GetPosition(this).ToScreenPoint();
 
-            e.Handled = this.ActualController.HandleMouseDown(this, e.ToMouseDownEventArgs(this));
+            e.Handled = this.ActualController.HandleMouseDown(this, e.ToMouseDownEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseMove(this, e.ToMouseEventArgs(this));
+            e.Handled = this.ActualController.HandleMouseMove(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace OxyPlot.Wpf
 
             this.ReleaseMouseCapture();
 
-            e.Handled = this.ActualController.HandleMouseUp(this, e.ToMouseReleasedEventArgs(this));
+            e.Handled = this.ActualController.HandleMouseUp(this, e.ToMouseReleasedEventArgs(this, this.GetRelativeTo()));
 
             // Open the context menu
             var p = e.GetPosition(this).ToScreenPoint();
@@ -179,7 +179,7 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseEnter(this, e.ToMouseEventArgs(this));
+            e.Handled = this.ActualController.HandleMouseEnter(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseLeave(this, e.ToMouseEventArgs(this));
+            e.Handled = this.ActualController.HandleMouseLeave(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
     }
 }

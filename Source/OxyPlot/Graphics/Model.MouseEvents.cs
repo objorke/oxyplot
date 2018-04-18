@@ -232,7 +232,7 @@ namespace OxyPlot
         /// <param name="e">The <see cref="OxyKeyEventArgs" /> instance containing the event data.</param>
         public virtual void HandleKeyDown(object sender, OxyKeyEventArgs e)
         {
-            foreach (var element in this.GetHitTestElements())
+            foreach (var element in this.GetElements())
             {
                 element.OnKeyDown(e);
 

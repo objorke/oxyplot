@@ -55,6 +55,11 @@ namespace OxyPlot
         protected IList<ManipulatorBase<OxyTouchEventArgs>> TouchManipulators { get; private set; }
 
         /// <summary>
+        /// Gets or sets the current mouse event element
+        /// </summary>
+        protected UIElement CurrentMouseEventElement { get; set; }
+
+        /// <summary>
         /// Handles the specified gesture.
         /// </summary>
         /// <param name="view">The plot view.</param>
@@ -65,30 +70,6 @@ namespace OxyPlot
         {
             var command = this.GetCommand(gesture);
             return this.HandleCommand(command, view, args);
-        }
-
-        /// <summary>
-        /// Handles mouse down events.
-        /// </summary>
-        /// <param name="view">The plot view.</param>
-        /// <param name="args">The <see cref="OxyMouseEventArgs" /> instance containing the event data.</param>
-        /// <returns><c>true</c> if the event was handled.</returns>
-        public virtual bool HandleMouseDown(IView view, OxyMouseDownEventArgs args)
-        {
-            lock (this.GetSyncRoot(view))
-            {
-                if (view.ActualModel != null)
-                {
-                    view.ActualModel.HandleMouseDown(this, args);
-                    if (args.Handled)
-                    {
-                        return true;
-                    }
-                }
-
-                var command = this.GetCommand(new OxyMouseDownGesture(args.ChangedButton, args.ModifierKeys, args.ClickCount));
-                return this.HandleCommand(command, view, args);
-            }
         }
 
         /// <summary>
@@ -140,7 +121,56 @@ namespace OxyPlot
                     this.MouseHoverManipulators.Remove(m);
                 }
 
-                return args.Handled;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Returns the elements that are hit at the specified position.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="args">The hit test arguments.</param>
+        /// <returns>
+        /// A sequence of hit results.
+        /// </returns>
+        public virtual IEnumerable<HitTestResult> HitTest(IView view, HitTestArguments args)
+        {
+            yield break;
+        }
+
+        /// <summary>
+        /// Handles mouse down events.
+        /// </summary>
+        /// <param name="view">The plot view.</param>
+        /// <param name="args">The <see cref="OxyMouseEventArgs" /> instance containing the event data.</param>
+        /// <returns><c>true</c> if the event was handled.</returns>
+        public virtual bool HandleMouseDown(IView view, OxyMouseDownEventArgs args)
+        {
+            lock (this.GetSyncRoot(view))
+            {
+                var hitargs = new HitTestArguments(args.Position, 10);
+                foreach (var result in this.HitTest(view, hitargs))
+                {
+                    args.HitTestResult = result;
+                    result.Element.OnMouseDown(args);
+                    if (args.Handled)
+                    {
+                        this.CurrentMouseEventElement = result.Element;
+                        return true;
+                    }
+                }
+
+                if (view.ActualModel != null)
+                {
+                    view.ActualModel.HandleMouseDown(this, args);
+                    if (args.Handled)
+                    {
+                        return true;
+                    }
+                }
+
+                var command = this.GetCommand(new OxyMouseDownGesture(args.ChangedButton, args.ModifierKeys, args.ClickCount));
+                return this.HandleCommand(command, view, args);
             }
         }
 
@@ -154,6 +184,15 @@ namespace OxyPlot
         {
             lock (this.GetSyncRoot(view))
             {
+                if (this.CurrentMouseEventElement != null)
+                {
+                    this.CurrentMouseEventElement.OnMouseMove(args);
+                    if (args.Handled)
+                    {
+                        return true;
+                    }
+                }
+
                 if (view.ActualModel != null)
                 {
                     view.ActualModel.HandleMouseMove(this, args);
@@ -173,7 +212,7 @@ namespace OxyPlot
                     m.Delta(args);
                 }
 
-                return args.Handled;
+                return true;
             }
         }
 
@@ -187,6 +226,16 @@ namespace OxyPlot
         {
             lock (this.GetSyncRoot(view))
             {
+                if (this.CurrentMouseEventElement != null)
+                {
+                    this.CurrentMouseEventElement.OnMouseUp(args);
+                    this.CurrentMouseEventElement = null;
+                    if (args.Handled)
+                    {
+                        return true;
+                    }
+                }
+
                 if (view.ActualModel != null)
                 {
                     view.ActualModel.HandleMouseUp(this, args);
@@ -202,7 +251,7 @@ namespace OxyPlot
                     this.MouseDownManipulators.Remove(m);
                 }
 
-                return args.Handled;
+                return true;
             }
         }
 
@@ -269,7 +318,7 @@ namespace OxyPlot
                     m.Delta(args);
                 }
 
-                return args.Handled;
+                return true;
             }
         }
 
@@ -298,7 +347,7 @@ namespace OxyPlot
                     this.TouchManipulators.Remove(m);
                 }
 
-                return args.Handled;
+                return true;
             }
         }
 
@@ -508,7 +557,9 @@ namespace OxyPlot
             }
 
             command.Execute(view, this, args);
-            return args.Handled;
+
+            args.Handled = true;
+            return true;
         }
 
         /// <summary>

@@ -1200,7 +1200,7 @@ namespace OxyPlot
         /// <returns>
         /// An enumerator of the elements.
         /// </returns>
-        protected override IEnumerable<PlotElement> GetHitTestElements()
+        public override IEnumerable<UIElement> GetElements()
         {
             foreach (var axis in this.Axes.Reverse().Where(a => a.IsAxisVisible && a.Layer == AxisLayer.AboveSeries))
             {

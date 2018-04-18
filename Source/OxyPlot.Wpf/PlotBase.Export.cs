@@ -22,7 +22,7 @@ namespace OxyPlot.Wpf
         /// <param name="fileName">Name of the file.</param>
         public void SaveBitmap(string fileName)
         {
-            this.SaveBitmap(fileName, -1, -1, this.ActualModel.Background);
+            this.SaveBitmap(fileName, -1, -1, ((IPlotView)this).ActualModel.Background);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace OxyPlot.Wpf
                 background = this.Background.ToOxyColor();
             }
 
-            PngExporter.Export(this.ActualModel, fileName, width, height, background);
+            PngExporter.Export(((IPlotView)this).ActualModel, fileName, width, height, background);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace OxyPlot.Wpf
         /// <param name="fileName">Name of the file.</param>
         public void SaveXaml(string fileName)
         {
-            var background = this.ActualModel.Background.IsVisible() ? this.ActualModel.Background : this.Background.ToOxyColor();
-            XamlExporter.Export(this.ActualModel, fileName, this.ActualWidth, this.ActualHeight, background);
+            var background = ((IPlotView)this).ActualModel.Background.IsVisible() ? ((IPlotView)this).ActualModel.Background : this.Background.ToOxyColor();
+            XamlExporter.Export(((IPlotView)this).ActualModel, fileName, this.ActualWidth, this.ActualHeight, background);
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace OxyPlot.Wpf
         /// <returns>The xaml.</returns>
         public string ToXaml()
         {
-            var background = this.ActualModel.Background.IsVisible() ? this.ActualModel.Background : this.Background.ToOxyColor();
-            return XamlExporter.ExportToString(this.ActualModel, this.ActualWidth, this.ActualHeight, background);
+            var background = ((IPlotView)this).ActualModel.Background.IsVisible() ? ((IPlotView)this).ActualModel.Background : this.Background.ToOxyColor();
+            return XamlExporter.ExportToString(((IPlotView)this).ActualModel, this.ActualWidth, this.ActualHeight, background);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace OxyPlot.Wpf
         /// <returns>A bitmap.</returns>
         public BitmapSource ToBitmap()
         {
-            var background = this.ActualModel.Background.IsVisible() ? this.ActualModel.Background : this.Background.ToOxyColor();
-            return PngExporter.ExportToBitmap(this.ActualModel, (int)this.ActualWidth, (int)this.ActualHeight, background);
+            var background = ((IPlotView)this).ActualModel.Background.IsVisible() ? ((IPlotView)this).ActualModel.Background : this.Background.ToOxyColor();
+            return PngExporter.ExportToBitmap(((IPlotView)this).ActualModel, (int)this.ActualWidth, (int)this.ActualHeight, background);
         }
     }
 }

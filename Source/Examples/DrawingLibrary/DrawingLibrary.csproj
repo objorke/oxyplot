@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net47</TargetFramework>
+    <PackageId>OxyPlot.ExampleLibrary</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Example models for OxyPlot.</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/oxyplot/oxyplot/master/LICENSE</PackageLicenseUrl>
+    <Copyright>OxyPlot contributors</Copyright>
+    <PackageProjectUrl>http://oxyplot.org/</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/oxyplot/oxyplot/develop/Icons/OxyPlot_128.png</PackageIconUrl>
+    <PackageTags>plotting plot charting chart</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/oxyplot/oxyplot.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Examples\UmlClass.cs" />
+    <Compile Remove="Examples\UmlExamples.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\OpenStreetMapExamples\map.osm" />
+    <EmbeddedResource Include="Examples\SvgExamples\Ghostscript_Tiger.svgz" />
+    <EmbeddedResource Include="Resources\Tracklog.gpx" />
+    <EmbeddedResource Include="Examples\SvgExamples\Ghostscript_Tiger.svg" />
+    <EmbeddedResource Include="Examples\SvgExamples\Blank_map_of_Europe.svg" />
+    <EmbeddedResource Include="Examples\OpenStreetMapExamples\mtbways.osm" />
+    <EmbeddedResource Include="Examples\SvgExamples\Europe_countries.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Examples\UmlClass.cs" />
+    <None Include="Examples\UmlExamples.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OxyPlot\OxyPlot.csproj" />
+  </ItemGroup>
+</Project>

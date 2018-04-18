@@ -76,7 +76,7 @@ namespace OxyPlot.Wpf
         /// Gets the actual model.
         /// </summary>
         /// <value>The actual model.</value>
-        public override PlotModel ActualModel
+        public override Model ActualModel
         {
             get
             {
@@ -88,7 +88,7 @@ namespace OxyPlot.Wpf
         /// Gets the actual Plot controller.
         /// </summary>
         /// <value>The actual Plot controller.</value>
-        public override IPlotController ActualController
+        public override IController ActualController
         {
             get
             {

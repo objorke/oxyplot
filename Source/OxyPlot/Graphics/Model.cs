@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Model.cs" company="OxyPlot">
 //   Copyright (c) 2014 OxyPlot contributors
 // </copyright>
@@ -10,6 +10,7 @@
 namespace OxyPlot
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Provides an abstract base class for graphics models.
@@ -59,9 +60,8 @@ namespace OxyPlot
         /// </returns>
         public IEnumerable<HitTestResult> HitTest(HitTestArguments args)
         {
-            var hitTestElements = this.GetHitTestElements();
-
-            foreach (var element in hitTestElements)
+            // Revert the order to handle the top-level elements first
+            foreach (var element in this.GetElements().Reverse())
             {
                 var result = element.HitTest(args);
                 if (result != null)
@@ -75,6 +75,6 @@ namespace OxyPlot
         /// Gets all elements of the model, top-level elements first.
         /// </summary>
         /// <returns>An enumerator of the elements.</returns>
-        protected abstract IEnumerable<PlotElement> GetHitTestElements();
+        public abstract IEnumerable<UIElement> GetElements();
     }
 }
