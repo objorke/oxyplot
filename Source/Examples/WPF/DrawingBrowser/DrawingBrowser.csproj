@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <OutputType>WinExe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\OxyDraw.Wpf\OxyDraw.Wpf.csproj" />
+        <ProjectReference Include="..\..\..\OxyDraw\OxyDraw.csproj" />
+        <ProjectReference Include="..\..\..\OxyPlot.Wpf\OxyPlot.Wpf.csproj" />
+        <ProjectReference Include="..\..\..\OxyPlot\OxyPlot.csproj" />
+        <ProjectReference Include="..\..\DrawingLibrary\DrawingLibrary.csproj" />
+    </ItemGroup>
+</Project>
