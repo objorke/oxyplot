@@ -1,104 +1,129 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlotView.cs" company="OxyPlot">
+// <copyright file="GraphicsView.cs" company="OxyPlot">
 //   Copyright (c) 2014 OxyPlot contributors
 // </copyright>
 // <summary>
-//   Represents a control that displays a <see cref="PlotModel" />.
+//   Provides an abstract base class for graphics controls.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OxyPlot.Wpf
 {
     using System;
-    using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using System.Windows.Media;
 
     /// <summary>
-    /// Represents a control that displays a <see cref="PlotModel" />.
+    /// Provides an abstract base class for graphics controls.
     /// </summary>
-    [TemplatePart(Name = PartGrid, Type = typeof(Grid))]
-    public class PlotView : PlotBase
+    public abstract class GraphicsView : Control, IView
     {
         /// <summary>
-        /// Identifies the <see cref="Model"/> dependency property.
+        /// Identifies the <see cref="Controller"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty ModelProperty =
-            DependencyProperty.Register("Model", typeof(PlotModel), typeof(PlotView), new PropertyMetadata(null, ModelChanged));
+        public static readonly DependencyProperty ControllerProperty =
+            DependencyProperty.Register("Controller", typeof(IController), typeof(GraphicsView), new PropertyMetadata(null));
 
         /// <summary>
-        /// The model lock.
+        /// The mouse down point
         /// </summary>
-        private readonly object modelLock = new object();
+        private ScreenPoint mouseDownPoint;
 
         /// <summary>
-        /// The current model (synchronized with the <see cref="Model" /> property, but can be accessed from all threads.
+        /// Gets the actual model in the view.
         /// </summary>
-        private PlotModel currentModel;
+        /// <value>
+        /// The actual <see cref="Model" />.
+        /// </value>
+        public abstract Model ActualModel { get; }
 
         /// <summary>
-        /// The default plot controller.
+        /// Gets or sets the view model.
         /// </summary>
-        private IPlotController defaultController;
+        /// <value>
+        /// The view model.
+        /// </value>
+        public IViewModel ViewModel { get; protected set; }
 
         /// <summary>
-        /// Initializes static members of the <see cref="PlotView" /> class.
+        /// Gets the coordinates of the client area of the view.
         /// </summary>
-        static PlotView()
+        /// <value>
+        /// The client area rectangle.
+        /// </value>
+        OxyRect IView.ClientArea
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(PlotView), new FrameworkPropertyMetadata(typeof(PlotView)));
-            PaddingProperty.OverrideMetadata(typeof(PlotView), new FrameworkPropertyMetadata(new Thickness(8), AppearanceChanged));
+            get { return new OxyRect(0, 0, this.ActualWidth, this.ActualHeight); }
         }
 
         /// <summary>
-        /// Gets or sets the model.
+        /// Gets or sets the plot controller.
         /// </summary>
-        /// <value>The model.</value>
-        public PlotModel Model
+        /// <value>The plot controller.</value>
+        public IController Controller
         {
-            get
-            {
-                return (PlotModel)this.GetValue(ModelProperty);
-            }
+            get { return (IController)this.GetValue(ControllerProperty); }
+            set { this.SetValue(ControllerProperty, value); }
+        }
 
-            set
+        /// <summary>
+        /// Gets the actual plot controller.
+        /// </summary>
+        /// <value>The actual plot controller.</value>
+        public abstract IController ActualController { get; }
+
+        ///// <summary>
+        ///// Gets the actual plot controller.
+        ///// </summary>
+        ///// <value>The actual plot controller.</value>
+        //public IController ActualController
+        //{
+        //    get
+        //    {
+        //        return this.Controller ?? (this.defaultController ?? (this.defaultController = this.CreateDefaultController()));
+        //    }
+        //}
+
+        /// <summary>
+        /// Sets the cursor type.
+        /// </summary>
+        /// <param name="cursorType">The cursor type.</param>
+        public void SetCursorType(OxyPlot.CursorType cursorType)
+        {
+            switch (cursorType)
             {
-                this.SetValue(ModelProperty, value);
+                case OxyPlot.CursorType.Pan:
+                    this.Cursor = Cursors.Hand;
+                    break;
+                case OxyPlot.CursorType.ZoomRectangle:
+                    this.Cursor = Cursors.SizeNWSE;
+                    break;
+                case OxyPlot.CursorType.ZoomHorizontal:
+                    this.Cursor = Cursors.SizeWE;
+                    break;
+                case OxyPlot.CursorType.ZoomVertical:
+                    this.Cursor = Cursors.SizeNS;
+                    break;
+                default:
+                    this.Cursor = Cursors.Arrow;
+                    break;
             }
         }
 
         /// <summary>
-        /// Gets the actual model.
+        /// Hides the zoom rectangle.
         /// </summary>
-        /// <value>The actual model.</value>
-        public override Model ActualModel
+        public virtual void HideZoomRectangle()
         {
-            get
-            {
-                return this.currentModel;
-            }
         }
 
         /// <summary>
-        /// Gets the actual PlotView controller.
+        /// Shows the zoom rectangle.
         /// </summary>
-        /// <value>The actual PlotView controller.</value>
-        public override IController ActualController
+        /// <param name="zoomRectangle">The zoom rectangle.</param>
+        public virtual void ShowZoomRectangle(OxyRect zoomRectangle)
         {
-            get
-            {
-                return this.Controller ?? (this.defaultController ?? (this.defaultController = new PlotController()));
-            }
-        }
-
-        /// <summary>
-        /// Called when the visual appearance is changed.
-        /// </summary>
-        protected void OnAppearanceChanged()
-        {
-            this.InvalidatePlot(false);
         }
 
         /// <summary>
@@ -116,6 +141,12 @@ namespace OxyPlot.Wpf
             var args = new OxyKeyEventArgs { ModifierKeys = Keyboard.GetModifierKeys(), Key = e.Key.Convert() };
             e.Handled = this.ActualController.HandleKeyDown(this, args);
         }
+
+        /// <summary>
+        /// Creates the default controller.
+        /// </summary>
+        /// <returns>The default controller.</returns>
+        protected abstract IController CreateDefaultController();
 
         /// <summary>
         /// Invoked when an unhandled MouseDown attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
@@ -136,7 +167,16 @@ namespace OxyPlot.Wpf
             // store the mouse down point, check it when mouse button is released to determine if the context menu should be shown
             this.mouseDownPoint = e.GetPosition(this).ToScreenPoint();
 
-            e.Handled = this.ActualController.HandleMouseDown(this, e.ToMouseDownEventArgs(null, this));
+            e.Handled = this.ActualController.HandleMouseDown(this, e.ToMouseDownEventArgs(this, this.GetRelativeTo()));
+        }
+
+        /// <summary>
+        /// Gets the element that the mouse position is relative to.
+        /// </summary>
+        /// <returns>The element.</returns>
+        protected virtual IInputElement GetRelativeTo()
+        {
+            return this;
         }
 
         /// <summary>
@@ -152,7 +192,7 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseMove(this, e.ToMouseEventArgs(null, this));
+            e.Handled = this.ActualController.HandleMouseMove(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
@@ -170,7 +210,11 @@ namespace OxyPlot.Wpf
 
             this.ReleaseMouseCapture();
 
-            e.Handled = this.ActualController.HandleMouseUp(this, e.ToMouseReleasedEventArgs(null, this));
+            if (this.ActualController.HandleMouseUp(this, e.ToMouseReleasedEventArgs(this, this.GetRelativeTo())))
+            {
+                e.Handled = true;
+                return;
+            }
 
             // Open the context menu
             var p = e.GetPosition(this).ToScreenPoint();
@@ -206,7 +250,7 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseEnter(this, e.ToMouseEventArgs(null, this));
+            e.Handled = this.ActualController.HandleMouseEnter(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
@@ -221,77 +265,23 @@ namespace OxyPlot.Wpf
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseLeave(this, e.ToMouseEventArgs(null, this));
+            e.Handled = this.ActualController.HandleMouseLeave(this, e.ToMouseEventArgs(this, this.GetRelativeTo()));
         }
 
         /// <summary>
         /// Invoked when an unhandled MouseWheel attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.MouseWheelEventArgs" /> that contains the event data.</param>
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
-            base.OnMouseWheel(e);
+            base.OnPreviewMouseWheel(e);
 
-            if (e.Handled || !this.IsMouseWheelEnabled)
+            if (e.Handled)
             {
                 return;
             }
 
-            e.Handled = this.ActualController.HandleMouseWheel(this, e.ToMouseWheelEventArgs(this));
-        }
-
-        /// <summary>
-        /// Called when the parent of visual object is changed.
-        /// </summary>
-        /// <param name="oldParent">A value of type <see cref="T:System.Windows.DependencyObject" /> that represents the previous parent of the <see cref="T:System.Windows.Media.Media3D.Visual3D" /> object. If the <see cref="T:System.Windows.Media.Media3D.Visual3D" /> object did not have a previous parent, the value of the parameter is <c>null</c>.</param>
-        protected override void OnVisualParentChanged(DependencyObject oldParent)
-        {
-            base.OnVisualParentChanged(oldParent);
-            var parent = VisualTreeHelper.GetParent(this);
-            // this.IsRendering = parent != null && this.IsLoaded;
-        }
-
-        /// <summary>
-        /// Called when the visual appearance is changed.
-        /// </summary>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The <see cref="System.Windows.DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
-        private static void AppearanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((PlotView)d).OnAppearanceChanged();
-        }
-
-        /// <summary>
-        /// Called when the model is changed.
-        /// </summary>
-        /// <param name="d">The sender.</param>
-        /// <param name="e">The <see cref="System.Windows.DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
-        private static void ModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((PlotView)d).OnModelChanged();
-        }
-
-        /// <summary>
-        /// Called when the model is changed.
-        /// </summary>
-        private void OnModelChanged()
-        {
-            lock (this.modelLock)
-            {
-                if (this.currentModel != null)
-                {
-                    ((IPlotModel)this.currentModel).AttachPlotView(null);
-                    this.currentModel = null;
-                }
-
-                if (this.Model != null)
-                {
-                    ((IPlotModel)this.Model).AttachPlotView(this);
-                    this.currentModel = this.Model;
-                }
-            }
-
-            this.InvalidatePlot();
+            e.Handled = this.ActualController.HandleMouseWheel(this, e.ToMouseWheelEventArgs(this.GetRelativeTo()));
         }
     }
 }

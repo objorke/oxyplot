@@ -17,10 +17,10 @@ namespace OxyPlot
     public interface IExporter
     {
         /// <summary>
-        /// Exports the specified <see cref="PlotModel" /> to a <see cref="Stream" />.
+        /// Exports the specified <see cref="IModel" /> to a <see cref="Stream" />.
         /// </summary>
         /// <param name="model">The model to export.</param>
         /// <param name="stream">The target stream.</param>
-        void Export(IPlotModel model, Stream stream);
+        void Export(IModel model, Stream stream);
     }
 }

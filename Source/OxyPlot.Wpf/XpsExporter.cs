@@ -55,7 +55,7 @@ namespace OxyPlot.Wpf
         /// <param name="fileName">The file name.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public static void Export(IPlotModel model, string fileName, double width, double height)
+        public static void Export(IModel model, string fileName, double width, double height)
         {
             using (var stream = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite))
             {
@@ -71,7 +71,7 @@ namespace OxyPlot.Wpf
         /// <param name="stream">The stream.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public static void Export(IPlotModel model, Stream stream, double width, double height)
+        public static void Export(IModel model, Stream stream, double width, double height)
         {
             var exporter = new XpsExporter { Width = width, Height = height };
             exporter.Export(model, stream);
@@ -83,7 +83,7 @@ namespace OxyPlot.Wpf
         /// <param name="model">The model.</param>
         /// <param name="width">The width (using the actual media width if set to NaN).</param>
         /// <param name="height">The height (using the actual media height if set to NaN).</param>
-        public static void Print(IPlotModel model, double width, double height)
+        public static void Print(IModel model, double width, double height)
         {
             var exporter = new XpsExporter { Width = width, Height = height };
             exporter.Print(model);
@@ -94,7 +94,7 @@ namespace OxyPlot.Wpf
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="stream">The stream.</param>
-        public void Export(IPlotModel model, Stream stream)
+        public void Export(IModel model, Stream stream)
         {
             using (var xpsPackage = Package.Open(stream, FileMode.Create, FileAccess.ReadWrite))
             {
@@ -110,7 +110,7 @@ namespace OxyPlot.Wpf
         /// Prints the specified plot model.
         /// </summary>
         /// <param name="model">The model.</param>
-        public void Print(IPlotModel model)
+        public void Print(IModel model)
         {
             PrintDocumentImageableArea area = null;
             var xpsDocumentWriter = PrintQueue.CreateXpsDocumentWriter(ref area);
@@ -135,7 +135,7 @@ namespace OxyPlot.Wpf
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="writer">The document writer.</param>
-        private void Write(IPlotModel model, XpsDocumentWriter writer)
+        private void Write(IModel model, XpsDocumentWriter writer)
         {
             var canvas = new Canvas { Width = this.Width, Height = this.Height, Background = model.Background.ToBrush() };
             canvas.Measure(new Size(this.Width, this.Height));

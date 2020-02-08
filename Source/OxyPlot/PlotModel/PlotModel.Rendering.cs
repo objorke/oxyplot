@@ -23,21 +23,11 @@ namespace OxyPlot
     public partial class PlotModel
     {
         /// <summary>
-        /// Renders the plot with the specified rendering context within the given rectangle.
-        /// </summary>
-        /// <param name="rc">The rendering context.</param>
-        /// <param name="rect">The plot bounds.</param>
-        void IPlotModel.Render(IRenderContext rc, OxyRect rect)
-        {
-            this.RenderOverride(rc, rect);
-        }
-
-        /// <summary>
         /// Renders the plot with the specified rendering context.
         /// </summary>
         /// <param name="rc">The rendering context.</param>
         /// <param name="rect">The plot bounds.</param>
-        protected virtual void RenderOverride(IRenderContext rc, OxyRect rect)
+        protected override void RenderOverride(IRenderContext rc, OxyRect rect)
         {
             lock (this.SyncRoot)
             {

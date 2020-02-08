@@ -220,13 +220,6 @@ namespace OxyPlot
         public ElementCollection<LegendBase> Legends { get; set; }
 
         /// <summary>
-        /// Gets or sets the color of the background of the plot.
-        /// </summary>
-        /// <value>The color. The default is <see cref="OxyColors.Undefined" />.</value>
-        /// <remarks>If the background color is set to <see cref="OxyColors.Undefined" />, the default color of the plot view will be used.</remarks>
-        public OxyColor Background { get; set; }
-
-        /// <summary>
         /// Gets or sets the culture.
         /// </summary>
         /// <value>The culture.</value>
@@ -724,7 +717,7 @@ namespace OxyPlot
         }
 
         /// <summary>
-        /// Gets any exception thrown during the last <see cref="IPlotModel.Update" /> call.
+        /// Gets any exception thrown during the last <see cref="IModel.Update" /> call.
         /// </summary>
         /// <returns>The exception or <c>null</c> if there was no exception.</returns>
         public Exception GetLastPlotException()
@@ -740,7 +733,7 @@ namespace OxyPlot
         /// 3. Updates the max and min of the axes.
         /// </summary>
         /// <param name="updateData">if set to <c>true</c> , all data collections will be updated.</param>
-        void IPlotModel.Update(bool updateData)
+        protected override void UpdateOverride(bool updateData)
         {
             lock (this.SyncRoot)
             {
@@ -908,7 +901,7 @@ namespace OxyPlot
         /// <returns>
         /// An enumerator of the elements.
         /// </returns>
-        protected override IEnumerable<PlotElement> GetHitTestElements()
+        protected override IEnumerable<UIElement> GetHitTestElements()
         {
             foreach (var axis in this.Axes.Reverse().Where(a => a.IsAxisVisible && a.Layer == AxisLayer.AboveSeries))
             {

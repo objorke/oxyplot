@@ -29,7 +29,7 @@ namespace OxyPlot.Wpf
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>A xaml string.</returns>
-        public static string ExportToString(IPlotModel model, double width, double height)
+        public static string ExportToString(IModel model, double width, double height)
         {
             var sb = new StringBuilder();
             using (var sw = new StringWriter(sb))
@@ -48,7 +48,7 @@ namespace OxyPlot.Wpf
         /// <param name="fileName">Name of the file.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public static void Export(PlotModel model, string fileName, double width, double height)
+        public static void Export(IModel model, string fileName, double width, double height)
         {
             using (var sw = new StreamWriter(fileName))
             {
@@ -64,7 +64,7 @@ namespace OxyPlot.Wpf
         /// <param name="writer">The xml writer.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        private static void Export(IPlotModel model, XmlWriter writer, double width, double height)
+        private static void Export(IModel model, XmlWriter writer, double width, double height)
         {
             var c = new Canvas();
             if (model.Background.IsVisible())

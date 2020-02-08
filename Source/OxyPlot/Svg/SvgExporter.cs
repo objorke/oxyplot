@@ -61,7 +61,7 @@ namespace OxyPlot
         /// <param name="isDocument">if set to <c>true</c>, the xml headers will be included (?xml and !DOCTYPE).</param>
         /// <param name="textMeasurer">The text measurer.</param>
         /// <param name="useVerticalTextAlignmentWorkaround">Whether to use the workaround for vertical text alignment</param>
-        public static void Export(IPlotModel model, Stream stream, double width, double height, bool isDocument, IRenderContext textMeasurer = null, bool useVerticalTextAlignmentWorkaround = false)
+        public static void Export(IModel model, Stream stream, double width, double height, bool isDocument, IRenderContext textMeasurer = null, bool useVerticalTextAlignmentWorkaround = false)
         {
             if (textMeasurer == null)
             {
@@ -87,7 +87,7 @@ namespace OxyPlot
         /// <param name="textMeasurer">The text measurer.</param>
         /// <returns>The plot as an <c>SVG</c> string.</returns>
         /// <param name="useVerticalTextAlignmentWorkaround">Whether to use the workaround for vertical text alignment</param>
-        public static string ExportToString(IPlotModel model, double width, double height, bool isDocument, IRenderContext textMeasurer = null, bool useVerticalTextAlignmentWorkaround = false)
+        public static string ExportToString(IModel model, double width, double height, bool isDocument, IRenderContext textMeasurer = null, bool useVerticalTextAlignmentWorkaround = false)
         {
             string svg;
             using (var ms = new MemoryStream())
@@ -103,21 +103,21 @@ namespace OxyPlot
         }
 
         /// <summary>
-        /// Exports the specified <see cref="PlotModel" /> to a <see cref="Stream" />.
+        /// Exports the specified <see cref="IModel" /> to a <see cref="Stream" />.
         /// </summary>
         /// <param name="model">The model to export.</param>
         /// <param name="stream">The target stream.</param>
-        public void Export(IPlotModel model, Stream stream)
+        public void Export(IModel model, Stream stream)
         {
             Export(model, stream, this.Width, this.Height, this.IsDocument, this.TextMeasurer, this.UseVerticalTextAlignmentWorkaround);
         }
 
         /// <summary>
-        /// Exports the specified <see cref="PlotModel" /> to a string.
+        /// Exports the specified <see cref="IModel" /> to a string.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>the SVG content as a string.</returns>
-        public string ExportToString(IPlotModel model)
+        public string ExportToString(IModel model)
         {
             return ExportToString(model, this.Width, this.Height, this.IsDocument, this.TextMeasurer, this.UseVerticalTextAlignmentWorkaround);
         }

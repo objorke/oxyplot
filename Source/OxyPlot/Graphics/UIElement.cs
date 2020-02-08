@@ -60,7 +60,7 @@ namespace OxyPlot
         public event EventHandler<OxyTouchEventArgs> TouchCompleted;
 
         /// <summary>
-        /// Tests if the plot element is hit by the specified point.
+        /// Tests if the element is hit by the specified point.
         /// </summary>
         /// <param name="args">The hit test arguments.</param>
         /// <returns>

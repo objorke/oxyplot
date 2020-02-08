@@ -54,7 +54,7 @@ namespace OxyPlot.Wpf
         /// <param name="width">The width of the output bitmap.</param>
         /// <param name="height">The height of the output bitmap.</param>
         /// <param name="resolution">The resolution (resolution). The default value is 96.</param>
-        public static void Export(IPlotModel model, string fileName, int width, int height, double resolution = 96)
+        public static void Export(IModel model, string fileName, int width, int height, double resolution = 96)
         {
             var exporter = new PngExporter { Width = width, Height = height, Resolution = resolution };
             using (var stream = File.Create(fileName))
@@ -68,7 +68,7 @@ namespace OxyPlot.Wpf
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="stream">The output stream.</param>
-        public void Export(IPlotModel model, Stream stream)
+        public void Export(IModel model, Stream stream)
         {
             var bmp = this.ExportToBitmap(model);
             var encoder = new PngBitmapEncoder();
@@ -81,7 +81,7 @@ namespace OxyPlot.Wpf
         /// </summary>
         /// <param name="model">The model to export.</param>
         /// <returns>A bitmap.</returns>
-        public BitmapSource ExportToBitmap(IPlotModel model)
+        public BitmapSource ExportToBitmap(IModel model)
         {
             var scale = 96d / this.Resolution;
             var canvas = new Canvas { Width = this.Width * scale, Height = this.Height * scale, Background = model.Background.ToBrush() };

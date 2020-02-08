@@ -33,7 +33,7 @@ namespace OxyPlot.Pdf
         /// <param name="path">The path.</param>
         /// <param name="width">The width (points).</param>
         /// <param name="height">The height (points).</param>
-        public static void Export(IPlotModel model, string path, double width, double height)
+        public static void Export(IModel model, string path, double width, double height)
         {
             using (var s = File.OpenWrite(path))
             {
@@ -48,7 +48,7 @@ namespace OxyPlot.Pdf
         /// <param name="stream">The output stream.</param>
         /// <param name="width">The width (points).</param>
         /// <param name="height">The height (points).</param>
-        public static void Export(IPlotModel model, Stream stream, double width, double height)
+        public static void Export(IModel model, Stream stream, double width, double height)
         {
             var exporter = new PdfExporter { Width = width, Height = height };
             exporter.Export(model, stream);
@@ -59,7 +59,7 @@ namespace OxyPlot.Pdf
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="stream">The stream.</param>
-        public void Export(IPlotModel model, Stream stream)
+        public void Export(IModel model, Stream stream)
         {
             using (var rc = new PdfRenderContext(this.Width, this.Height, model.Background))
             {

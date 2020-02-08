@@ -397,12 +397,16 @@ namespace OxyPlot.Wpf
         /// Converts <see cref="MouseButtonEventArgs" /> to <see cref="OxyMouseEventArgs" /> for a mouse down event.
         /// </summary>
         /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
+        /// <param name="view">The view.</param>
         /// <param name="relativeTo">The <see cref="IInputElement" /> that the event is relative to.</param>
-        /// <returns>A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.</returns>
-        public static OxyMouseDownEventArgs ToMouseDownEventArgs(this MouseButtonEventArgs e, IInputElement relativeTo)
+        /// <returns>
+        /// A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.
+        /// </returns>
+        public static OxyMouseDownEventArgs ToMouseDownEventArgs(this MouseButtonEventArgs e, IView view, IInputElement relativeTo)
         {
             return new OxyMouseDownEventArgs
             {
+                View = view,
                 ChangedButton = e.ChangedButton.Convert(),
                 ClickCount = e.ClickCount,
                 Position = e.GetPosition(relativeTo).ToScreenPoint(),
@@ -414,12 +418,16 @@ namespace OxyPlot.Wpf
         /// Converts <see cref="MouseButtonEventArgs" /> to <see cref="OxyMouseEventArgs" /> for a mouse up event.
         /// </summary>
         /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
+        /// <param name="view">The view.</param>
         /// <param name="relativeTo">The <see cref="IInputElement" /> that the event is relative to.</param>
-        /// <returns>A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.</returns>
-        public static OxyMouseEventArgs ToMouseReleasedEventArgs(this MouseButtonEventArgs e, IInputElement relativeTo)
+        /// <returns>
+        /// A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.
+        /// </returns>
+        public static OxyMouseEventArgs ToMouseReleasedEventArgs(this MouseButtonEventArgs e, IView view, IInputElement relativeTo)
         {
             return new OxyMouseEventArgs
             {
+                View = view,
                 Position = e.GetPosition(relativeTo).ToScreenPoint(),
                 ModifierKeys = Keyboard.GetModifierKeys()
             };
@@ -429,12 +437,16 @@ namespace OxyPlot.Wpf
         /// Converts <see cref="MouseEventArgs" /> to <see cref="OxyMouseEventArgs" /> for a mouse event.
         /// </summary>
         /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
+        /// <param name="view">The view.</param>
         /// <param name="relativeTo">The <see cref="IInputElement" /> that the event is relative to.</param>
-        /// <returns>A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.</returns>
-        public static OxyMouseEventArgs ToMouseEventArgs(this MouseEventArgs e, IInputElement relativeTo)
+        /// <returns>
+        /// A <see cref="OxyMouseEventArgs" /> containing the converted event arguments.
+        /// </returns>
+        public static OxyMouseEventArgs ToMouseEventArgs(this MouseEventArgs e, IView view, IInputElement relativeTo)
         {
             return new OxyMouseEventArgs
             {
+                View = view,
                 Position = e.GetPosition(relativeTo).ToScreenPoint(),
                 ModifierKeys = Keyboard.GetModifierKeys()
             };
